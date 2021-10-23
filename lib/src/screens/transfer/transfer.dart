@@ -1,3 +1,4 @@
+import 'package:bytebank/src/models/transfer_data.dart';
 import 'package:bytebank/src/screens/transfer/widgets/edit.dart';
 import 'package:flutter/material.dart';
 
@@ -13,13 +14,9 @@ class TransferScreen extends StatelessWidget {
     double? value = double.tryParse(_valueControl.text);
 
     if(accountNumber != null && value != null) {
-        var transfer = Transfer(accountNumber: accountNumber, value: value);
-        debugPrint("tranfer: $transfer");
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(transfer.toString())
-          )
-        );
+        var transfer = TransferData(accountNumber: accountNumber, value: value);
+        debugPrint("Tranfer created: $transfer");
+        Navigator.pop(context, transfer);
       }
   }
 
@@ -52,20 +49,5 @@ class TransferScreen extends StatelessWidget {
         ),
       ),
     );
-  }
-}
-
-class Transfer {
-  final int accountNumber;
-  final double value;
-
-  const Transfer({
-    required this.accountNumber,
-    required this.value
-  });
-
-  @override
-  String toString() {
-    return "Transfer $value dollars to account number: $accountNumber";
   }
 }
