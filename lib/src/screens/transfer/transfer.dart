@@ -46,6 +46,11 @@ class TransferScreen extends StatelessWidget {
                 if(accountNumber != null && value != null) {
                   var transfer = Transfer(accountNumber: accountNumber, value: value);
                   debugPrint("tranfer: $transfer");
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(transfer.toString())
+                    )
+                  );
                 }
               },
               child: const Text("Confirmar")
@@ -68,6 +73,6 @@ class Transfer {
 
   @override
   String toString() {
-    return "{ accountNumber: $accountNumber, value: $value }";
+    return "Transfer $value dollars to account number: $accountNumber";
   }
 }
