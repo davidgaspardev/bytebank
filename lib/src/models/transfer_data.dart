@@ -15,7 +15,7 @@ class TransferData extends Model {
   Map<String, dynamic> toMap() {
     return {
       "accountNumber": accountNumber,
-      "value": accountNumber
+      "value": value
     };
   }
 }
