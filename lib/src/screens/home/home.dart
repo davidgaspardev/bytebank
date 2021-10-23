@@ -23,7 +23,9 @@ class HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Transferencias"),
+        title: const Text("ByteBank"),
+        leading: Image.asset("lib/assets/images/logo.png"),
+        elevation: 0,
       ),
       body: ListView.builder(
         itemCount: _transfers.length,
