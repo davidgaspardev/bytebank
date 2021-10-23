@@ -26,26 +26,28 @@ class TransferScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text("Criar transferência"),
       ),
-      body: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-        child: Column(
-          children: [
-            Edit(
-              label: "Número da conta",
-              hint: "0000",
-              controller: _accountNumberControl,
-            ),
-            Edit(
-              label: "Valor",
-              hint: "0.00",
-              icon: const Icon(Icons.monetization_on),
-              controller: _valueControl,
-            ),
-            ElevatedButton(
-              onPressed: () => createTransfer(context),
-              child: const Text("Confirmar")
-            ),
-          ],
+      body: SingleChildScrollView(
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          child: Column(
+            children: [
+              Edit(
+                label: "Número da conta",
+                hint: "0000",
+                controller: _accountNumberControl,
+              ),
+              Edit(
+                label: "Valor",
+                hint: "0.00",
+                icon: const Icon(Icons.monetization_on),
+                controller: _valueControl,
+              ),
+              ElevatedButton(
+                onPressed: () => createTransfer(context),
+                child: const Text("Confirmar")
+              ),
+            ],
+          ),
         ),
       ),
     );
