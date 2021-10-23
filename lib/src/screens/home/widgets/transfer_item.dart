@@ -14,7 +14,7 @@ class TransferItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       child: ListTile(
-        leading: const Icon(Icons.monetization_on),
+        leading: Image.asset("lib/assets/images/transfer.png"),
         title: Text(data.accountNumber.toString()),
         subtitle: Text(data.value.toString()),
       ),
