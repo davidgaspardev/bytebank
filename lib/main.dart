@@ -1,5 +1,6 @@
 import 'package:bytebank/src/screens/home/home.dart';
 import 'package:bytebank/src/themes/colors.dart';
+import 'package:bytebank/src/themes/fonts.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(const ByteBank());
@@ -22,6 +23,7 @@ class ByteBank extends StatelessWidget {
         // or simply save your changes to "hot reload" in a Flutter IDE).
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
+        fontFamily: ThemeFonts.Poppins,
         primarySwatch: MaterialColor(ThemeColors.theme[500]!.value, ThemeColors.theme),
       ),
       home: const HomeScreen(),
