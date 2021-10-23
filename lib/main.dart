@@ -26,7 +26,7 @@ class ByteBank extends StatelessWidget {
         fontFamily: ThemeFonts.Poppins,
         primarySwatch: MaterialColor(ThemeColors.theme[500]!.value, ThemeColors.theme),
       ),
-      home: const HomeScreen(),
+      home: HomeScreen(),
     );
   }
 }
