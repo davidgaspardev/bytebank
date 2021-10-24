@@ -17,7 +17,7 @@ class ByteBank extends StatelessWidget {
         fontFamily: ThemeFonts.poppins,
         primarySwatch: MaterialColor(ThemeColors.theme[500]!.value, ThemeColors.theme),
       ),
-      initialRoute: HomeScreen.routeName,
+      initialRoute: DashboardScreen.routeName,
       onGenerateRoute: (settings) {
         switch(settings.name) {
           case "/":
