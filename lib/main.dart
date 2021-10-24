@@ -1,3 +1,4 @@
+import 'package:bytebank/src/screens/add_contact/add_contact.dart';
 import 'package:bytebank/src/screens/screens.dart';
 import 'package:bytebank/src/themes/themes.dart';
 import 'package:flutter/material.dart';
@@ -35,6 +36,10 @@ class ByteBank extends StatelessWidget {
           case ContactsScreen.routeName:
             return MaterialPageRoute(
               builder: (context) => const ContactsScreen(),
+            );
+          case AddContactScreen.routeName:
+            return MaterialPageRoute(
+              builder: (context) => AddContactScreen(),
             );
           default:
             throw Exception("Invalid route name: ${settings.name}");

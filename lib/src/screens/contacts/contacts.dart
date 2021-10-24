@@ -1,9 +1,14 @@
+import 'package:bytebank/src/screens/screens.dart';
 import 'package:flutter/material.dart';
 
 class ContactsScreen extends StatelessWidget {
   static const routeName = "/contacts";
 
   const ContactsScreen({Key? key}) : super(key: key);
+
+  void _addContact(BuildContext context) async {
+    await Navigator.of(context).pushNamed(AddContactScreen.routeName);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +27,7 @@ class ContactsScreen extends StatelessWidget {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () => _addContact(context),
         child: const Icon(Icons.add),
       ),
     );
