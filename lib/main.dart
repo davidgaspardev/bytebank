@@ -1,6 +1,5 @@
 import 'package:bytebank/src/screens/screens.dart';
-import 'package:bytebank/src/themes/colors.dart';
-import 'package:bytebank/src/themes/fonts.dart';
+import 'package:bytebank/src/themes/themes.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(const ByteBank());
@@ -15,8 +14,7 @@ class ByteBank extends StatelessWidget {
       title: 'ByteBank',
       theme: ThemeData(
         fontFamily: ThemeFonts.poppins,
-        primarySwatch:
-            MaterialColor(ThemeColors.theme[500]!.value, ThemeColors.theme),
+        primarySwatch: ThemeColors.primarySwatch,
       ),
       initialRoute: DashboardScreen.routeName,
       onGenerateRoute: (settings) {
