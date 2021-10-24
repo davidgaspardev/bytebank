@@ -29,6 +29,7 @@ class TransferScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Criar transferência"),
+        elevation: 0,
       ),
       body: SingleChildScrollView(
         child: Container(
