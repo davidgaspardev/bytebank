@@ -7,7 +7,13 @@ class ContactsScreen extends StatelessWidget {
   const ContactsScreen({Key? key}) : super(key: key);
 
   void _addContact(BuildContext context) async {
-    await Navigator.of(context).pushNamed(AddContactScreen.routeName);
+    var contact = await Navigator.of(context).pushNamed<ContactData>(
+      AddContactScreen.routeName,
+    );
+
+    if(contact != null) {
+      debugPrint("New contact: $contact");
+    }
   }
 
   @override
@@ -23,7 +29,7 @@ class ContactsScreen extends StatelessWidget {
               title: Text("Renan Sousa Silveira"),
               subtitle: Text("3476374"),
             ),
-          )
+          ),
         ],
       ),
       floatingActionButton: FloatingActionButton(

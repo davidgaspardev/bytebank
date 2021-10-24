@@ -1,5 +1,8 @@
+import 'package:bytebank/src/models/contact_data.dart';
 import 'package:bytebank/src/screens/add_contact/widgets/input_data.dart';
 import 'package:flutter/material.dart';
+
+export 'package:bytebank/src/models/contact_data.dart';
 
 class AddContactScreen extends StatefulWidget {
   static const routeName = "add_contact";
@@ -31,6 +34,20 @@ class _AddContactScreen extends State<AddContactScreen> {
           offset: accountNumberControl.text.length,
         ),
       );
+    }
+  }
+
+  void _createContact() async {
+    String fullname = fullnameControl.text;
+    int? accountNumber = int.tryParse(accountNumberControl.text);
+
+    if(accountNumber != null && fullname.length > 4) {
+      ContactData newContact = ContactData(
+        fullname: fullname, 
+        accountNumber: accountNumber,
+      );
+
+      Navigator.of(context).pop<ContactData>(newContact);
     }
   }
 
@@ -67,7 +84,7 @@ class _AddContactScreen extends State<AddContactScreen> {
                 ketboardType: TextInputType.number,
               ),
               OutlinedButton(
-                onPressed: () {},
+                onPressed: _createContact,
                 child: const Text("ADD"),
               ),
             ],
