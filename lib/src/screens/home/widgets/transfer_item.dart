@@ -46,7 +46,7 @@ class TransferItem extends StatelessWidget {
                   Text(
                     showAsBinary(data.accountNumber),
                     style: const TextStyle(
-                      fontFamily: ThemeFonts.RobotoMono,
+                      fontFamily: ThemeFonts.robotoMono,
                       fontSize: 10,
                     ),
                   ),

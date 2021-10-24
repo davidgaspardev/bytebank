@@ -1,4 +1,4 @@
 class ThemeFonts {
-  static const Poppins = 'Poppins';
-  static const RobotoMono = 'RobotoMono';
+  static const poppins = 'Poppins';
+  static const robotoMono = 'RobotoMono';
 }
