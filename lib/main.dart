@@ -15,21 +15,31 @@ class ByteBank extends StatelessWidget {
       title: 'ByteBank',
       theme: ThemeData(
         fontFamily: ThemeFonts.poppins,
-        primarySwatch: MaterialColor(ThemeColors.theme[500]!.value, ThemeColors.theme),
+        primarySwatch:
+            MaterialColor(ThemeColors.theme[500]!.value, ThemeColors.theme),
       ),
       initialRoute: DashboardScreen.routeName,
       onGenerateRoute: (settings) {
-        switch(settings.name) {
+        switch (settings.name) {
           case "/":
           case HomeScreen.routeName:
-            return MaterialPageRoute(builder: (context) => HomeScreen());
+            return MaterialPageRoute(
+              builder: (context) => HomeScreen(),
+            );
           case TransferScreen.routeName:
-            return MaterialPageRoute<TransferData>(builder: (context) => TransferScreen());
+            return MaterialPageRoute<TransferData>(
+              builder: (context) => TransferScreen(),
+            );
           case DashboardScreen.routeName:
-            return MaterialPageRoute(builder: (context) => const DashboardScreen());
+            return MaterialPageRoute(
+              builder: (context) => const DashboardScreen(),
+            );
           case ContactsScreen.routeName:
-            return MaterialPageRoute(builder: (context) => const ContactsScreen());
-          default: throw Exception("Invalid route name: ${settings.name}");
+            return MaterialPageRoute(
+              builder: (context) => const ContactsScreen(),
+            );
+          default:
+            throw Exception("Invalid route name: ${settings.name}");
         }
       },
     );

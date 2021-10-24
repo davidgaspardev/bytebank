@@ -5,13 +5,9 @@ import 'package:bytebank/src/themes/fonts.dart';
 import 'package:flutter/material.dart';
 
 class TransferItem extends StatelessWidget {
-
   final TransferData data;
 
-  const TransferItem({
-    Key? key,
-    required this.data
-  }): super(key: key);
+  const TransferItem({Key? key, required this.data}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +15,7 @@ class TransferItem extends StatelessWidget {
       margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(5),
-        color: ThemeColors.theme[50]!.withOpacity(.1)
+        color: ThemeColors.theme[50]!.withOpacity(.1),
       ),
       child: IntrinsicHeight(
         child: Row(
@@ -27,7 +23,7 @@ class TransferItem extends StatelessWidget {
           children: [
             Container(
               margin: const EdgeInsets.all(10),
-              child: Image.asset("lib/assets/images/transfer.png")
+              child: Image.asset("lib/assets/images/transfer.png"),
             ),
             Expanded(
               // color: Colors.red,
@@ -52,10 +48,8 @@ class TransferItem extends StatelessWidget {
                   ),
                   Text(
                     data.accountNumber.toString(),
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold
-                    ),
-                  )
+                    style: const TextStyle(fontWeight: FontWeight.bold),
+                  ),
                 ],
               ),
             ),

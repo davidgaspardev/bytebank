@@ -3,7 +3,6 @@ import 'package:bytebank/src/screens/transfer/transfer.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
-
   static const routeName = "/home";
 
   final _transfers = <TransferData>[];
@@ -17,7 +16,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class HomeScreenState extends State<HomeScreen> {
-
   List<TransferData> get _transfers => widget._transfers;
 
   @override
@@ -32,13 +30,13 @@ class HomeScreenState extends State<HomeScreen> {
         itemCount: _transfers.length,
         itemBuilder: (context, index) {
           return TransferItem(data: _transfers[index]);
-        }, 
+        },
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.pushNamed<TransferData>(context, TransferScreen.routeName)
-          .then((value) {
-            if(value != null) {
+              .then((value) {
+            if (value != null) {
               debugPrint("Value received: $value");
               setState(() {
                 _transfers.add(value);
@@ -46,7 +44,7 @@ class HomeScreenState extends State<HomeScreen> {
             }
           });
         },
-        child: const Icon(Icons.add)
+        child: const Icon(Icons.add),
       ),
     );
   }

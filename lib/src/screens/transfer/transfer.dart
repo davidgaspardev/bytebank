@@ -5,10 +5,9 @@ import 'package:flutter/material.dart';
 export 'package:bytebank/src/models/transfer_data.dart' show TransferData;
 
 class TransferScreen extends StatelessWidget {
-
   static const routeName = "/transfer";
-  
-  TransferScreen({ Key? key }): super(key: key);
+
+  TransferScreen({Key? key}) : super(key: key);
 
   final _accountNumberControl = TextEditingController();
   final _valueControl = TextEditingController();
@@ -17,11 +16,11 @@ class TransferScreen extends StatelessWidget {
     int? accountNumber = int.tryParse(_accountNumberControl.text);
     double? value = double.tryParse(_valueControl.text);
 
-    if(accountNumber != null && value != null) {
-        var transfer = TransferData(accountNumber: accountNumber, value: value);
-        debugPrint("Tranfer created: $transfer");
-        Navigator.pop(context, transfer);
-      }
+    if (accountNumber != null && value != null) {
+      var transfer = TransferData(accountNumber: accountNumber, value: value);
+      debugPrint("Tranfer created: $transfer");
+      Navigator.pop(context, transfer);
+    }
   }
 
   @override
@@ -49,7 +48,7 @@ class TransferScreen extends StatelessWidget {
               ),
               ElevatedButton(
                 onPressed: () => createTransfer(context),
-                child: const Text("Confirmar")
+                child: const Text("Confirmar"),
               ),
             ],
           ),
