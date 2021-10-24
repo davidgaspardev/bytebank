@@ -18,6 +18,19 @@ class HomeScreen extends StatefulWidget {
 class HomeScreenState extends State<HomeScreen> {
   List<TransferData> get _transfers => widget._transfers;
 
+  void _addTransfer() async {
+    var transfer = await Navigator.pushNamed<TransferData>(
+      context,
+      TransferScreen.routeName,
+    );
+    if (transfer != null) {
+      debugPrint("Value received: $transfer");
+      setState(() {
+        _transfers.add(transfer);
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,17 +46,7 @@ class HomeScreenState extends State<HomeScreen> {
         },
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.pushNamed<TransferData>(context, TransferScreen.routeName)
-              .then((value) {
-            if (value != null) {
-              debugPrint("Value received: $value");
-              setState(() {
-                _transfers.add(value);
-              });
-            }
-          });
-        },
+        onPressed: _addTransfer,
         child: const Icon(Icons.add),
       ),
     );
