@@ -1,5 +1,4 @@
-import 'package:bytebank/src/screens/home/home.dart';
-import 'package:bytebank/src/screens/transfer/transfer.dart';
+import 'package:bytebank/src/screens/screens.dart';
 import 'package:bytebank/src/themes/colors.dart';
 import 'package:bytebank/src/themes/fonts.dart';
 import 'package:flutter/material.dart';
@@ -26,6 +25,8 @@ class ByteBank extends StatelessWidget {
             return MaterialPageRoute(builder: (context) => HomeScreen());
           case TransferScreen.routeName:
             return MaterialPageRoute<TransferData>(builder: (context) => TransferScreen());
+          case DashboardScreen.routeName:
+            return MaterialPageRoute(builder: (context) => const DashboardScreen()); 
           default: throw Exception("Invalid route name: ${settings.name}");
         }
       },
