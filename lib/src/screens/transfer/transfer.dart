@@ -2,7 +2,11 @@ import 'package:bytebank/src/models/transfer_data.dart';
 import 'package:bytebank/src/screens/transfer/widgets/edit.dart';
 import 'package:flutter/material.dart';
 
+export 'package:bytebank/src/models/transfer_data.dart' show TransferData;
+
 class TransferScreen extends StatelessWidget {
+
+  static const routeName = "/transfer";
   
   TransferScreen({ Key? key }): super(key: key);
 

@@ -1,9 +1,10 @@
-import 'package:bytebank/src/models/transfer_data.dart';
 import 'package:bytebank/src/screens/home/widgets/transfer_item.dart';
 import 'package:bytebank/src/screens/transfer/transfer.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
+
+  static const routeName = "/home";
 
   final _transfers = <TransferData>[];
 
@@ -35,13 +36,8 @@ class HomeScreenState extends State<HomeScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          var result = Navigator.push<TransferData>(
-            context, 
-            MaterialPageRoute(builder: (context) {
-              return TransferScreen();
-            })
-          );
-          result.then((value) {
+          Navigator.pushNamed<TransferData>(context, TransferScreen.routeName)
+          .then((value) {
             if(value != null) {
               debugPrint("Value received: $value");
               setState(() {

@@ -1,4 +1,5 @@
 import 'package:bytebank/src/screens/home/home.dart';
+import 'package:bytebank/src/screens/transfer/transfer.dart';
 import 'package:bytebank/src/themes/colors.dart';
 import 'package:bytebank/src/themes/fonts.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +18,17 @@ class ByteBank extends StatelessWidget {
         fontFamily: ThemeFonts.poppins,
         primarySwatch: MaterialColor(ThemeColors.theme[500]!.value, ThemeColors.theme),
       ),
-      home: HomeScreen(),
+      initialRoute: HomeScreen.routeName,
+      onGenerateRoute: (settings) {
+        switch(settings.name) {
+          case "/":
+          case HomeScreen.routeName:
+            return MaterialPageRoute(builder: (context) => HomeScreen());
+          case TransferScreen.routeName:
+            return MaterialPageRoute<TransferData>(builder: (context) => TransferScreen());
+          default: throw Exception("Invalid route name: ${settings.name}");
+        }
+      },
     );
   }
 }
