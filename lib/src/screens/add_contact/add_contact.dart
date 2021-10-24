@@ -20,7 +20,7 @@ class _AddContactScreen extends State<AddContactScreen> {
   TextEditingController get fullnameControl => widget.fullnameControl;
   TextEditingController get accountNumberControl => widget.accountNumberControl;
 
-  void getOnlyNumber() {
+  void _getOnlyNumber() {
     String text = accountNumberControl.text;
     text = text.replaceAll(RegExp(r'[^0-9]'), '');
 
@@ -55,7 +55,7 @@ class _AddContactScreen extends State<AddContactScreen> {
   void initState() {
     super.initState();
 
-    accountNumberControl.addListener(getOnlyNumber);
+    accountNumberControl.addListener(_getOnlyNumber);
   }
 
   @override
@@ -96,7 +96,7 @@ class _AddContactScreen extends State<AddContactScreen> {
 
   @override
   void dispose() {
-    accountNumberControl.removeListener(getOnlyNumber);
+    accountNumberControl.removeListener(_getOnlyNumber);
     accountNumberControl.dispose();
     fullnameControl.dispose();
     super.dispose();
