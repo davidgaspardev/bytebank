@@ -2,7 +2,7 @@ import 'package:bytebank/src/helpers/abstractions/model.dart';
 
 class ContactData extends Model {
   final String fullname;
-  final String accountNumber;
+  final int accountNumber;
 
   ContactData({
     required this.fullname,
@@ -12,8 +12,8 @@ class ContactData extends Model {
   @override
   Map<String, dynamic> toMap() {
     return {
-        "fullname": fullname,
-        "accountNumber": accountNumber,
-      };
+      "fullname": fullname,
+      "accountNumber": accountNumber,
+    };
   }
 }
