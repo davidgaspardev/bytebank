@@ -27,10 +27,10 @@ class _AddContactScreen extends State<AddContactScreen> {
     if (text != accountNumberControl.text) {
       accountNumberControl.text = text;
       accountNumberControl.selection = TextSelection.fromPosition(
-      TextPosition(
-        offset: accountNumberControl.text.length,
-      ),
-    );
+        TextPosition(
+          offset: accountNumberControl.text.length,
+        ),
+      );
     }
   }
 
