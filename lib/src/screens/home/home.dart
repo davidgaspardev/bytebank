@@ -1,3 +1,4 @@
+import 'package:bytebank/src/models/transfer_data.dart';
 import 'package:bytebank/src/screens/home/widgets/transfer_item.dart';
 import 'package:bytebank/src/screens/transfer/transfer.dart';
 import 'package:flutter/material.dart';

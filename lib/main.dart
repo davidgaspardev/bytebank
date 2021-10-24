@@ -1,3 +1,4 @@
+import 'package:bytebank/src/models/models.dart';
 import 'package:bytebank/src/screens/add_contact/add_contact.dart';
 import 'package:bytebank/src/screens/screens.dart';
 import 'package:bytebank/src/themes/themes.dart';
@@ -34,7 +35,7 @@ class ByteBank extends StatelessWidget {
               builder: (context) => const DashboardScreen(),
             );
           case ContactsScreen.routeName:
-            return MaterialPageRoute(
+            return MaterialPageRoute<ContactData>(
               builder: (context) => const ContactsScreen(),
             );
           case AddContactScreen.routeName:
