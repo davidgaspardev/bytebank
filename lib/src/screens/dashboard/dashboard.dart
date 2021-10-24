@@ -1,3 +1,4 @@
+import 'package:bytebank/src/screens/screens.dart';
 import 'package:bytebank/src/themes/colors.dart';
 import 'package:flutter/material.dart';
 
@@ -12,37 +13,44 @@ class DashboardScreen extends StatelessWidget {
     );
   }
 
-  Widget buidButton() {
-    return Container(
-      width: 180,
-      height: 130,
-      margin: const EdgeInsets.all(10),
+  Widget buidButton(BuildContext context) {
+    return Padding(
       padding: const EdgeInsets.all(10),
-      decoration: BoxDecoration(
+      child: Material(
         borderRadius: BorderRadius.circular(5),
         color: ThemeColors.theme[50]!.withOpacity(.1),
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Icon(
-            Icons.people,
-            size: 40,
-            color: ThemeColors.theme[50]!,
-          ),
-          Material(
-            color: Colors.transparent,
-            child: Text(
-              "Contacts",
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-                color: ThemeColors.theme[50]!.withOpacity(.5),
-              ),
+        child: InkWell(
+          onTap: () {
+            Navigator.of(context).pushNamed(ContactsScreen.routeName);
+          },
+          child: Container(
+            width: 180,
+            height: 130,
+            padding: const EdgeInsets.all(10),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Icon(
+                  Icons.people,
+                  size: 40,
+                  color: ThemeColors.theme[50]!,
+                ),
+                Material(
+                  color: Colors.transparent,
+                  child: Text(
+                    "Contacts",
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: ThemeColors.theme[50]!.withOpacity(.5),
+                    ),
+                  ),
+                ),
+              ],
             ),
-          )
-        ],
+          ),
+        ),
       ),
     );
   }
@@ -63,7 +71,7 @@ class DashboardScreen extends StatelessWidget {
             ),
           ),
           Row(
-            children: [buidButton()],
+            children: [buidButton(context)],
           ),
         ],
       ),

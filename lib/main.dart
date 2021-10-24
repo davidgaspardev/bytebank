@@ -26,7 +26,9 @@ class ByteBank extends StatelessWidget {
           case TransferScreen.routeName:
             return MaterialPageRoute<TransferData>(builder: (context) => TransferScreen());
           case DashboardScreen.routeName:
-            return MaterialPageRoute(builder: (context) => const DashboardScreen()); 
+            return MaterialPageRoute(builder: (context) => const DashboardScreen());
+          case ContactsScreen.routeName:
+            return MaterialPageRoute(builder: (context) => const ContactsScreen());
           default: throw Exception("Invalid route name: ${settings.name}");
         }
       },
