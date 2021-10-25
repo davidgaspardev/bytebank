@@ -1,3 +1,3 @@
 # ByteBank
 
-ByteBank é um projeto em desenvolvimento com o Flutter, disponibilizado pela plataforma de ensino Alura.
+ByteBank is a hobby project to improve my layout building skill.
