@@ -36,7 +36,7 @@ class ByteBank extends StatelessWidget {
             );
           case ContactsScreen.routeName:
             return MaterialPageRoute(
-              builder: (context) => const ContactsScreen(),
+              builder: (context) => ContactsScreen(),
             );
           case AddContactScreen.routeName:
             return MaterialPageRoute<ContactData>(
