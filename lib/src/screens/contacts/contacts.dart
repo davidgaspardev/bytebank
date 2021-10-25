@@ -1,3 +1,4 @@
+import 'package:bytebank/src/database/app_db.dart';
 import 'package:bytebank/src/screens/screens.dart';
 import 'package:flutter/material.dart';
 
@@ -13,6 +14,10 @@ class ContactsScreen extends StatelessWidget {
 
     if(contact != null) {
       debugPrint("New contact: $contact");
+      var result = await saveContact(contact);
+      debugPrint("[Sqflite] Result: $result");
+      var results = await getAllContacts();
+      debugPrint("[Sqflite] All data: $results");
     }
   }
 
