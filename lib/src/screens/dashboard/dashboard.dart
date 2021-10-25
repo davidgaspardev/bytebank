@@ -13,16 +13,22 @@ class DashboardScreen extends StatelessWidget {
     );
   }
 
-  Widget buidButton(BuildContext context) {
+  Widget buidButton({
+    required IconData icon,
+    required String name,
+    required Function() onClick,
+  }) {
     return Padding(
-      padding: const EdgeInsets.all(10),
+      padding: const EdgeInsets.only(
+        top: 10,
+        bottom: 10,
+        left: 10,
+      ),
       child: Material(
         borderRadius: BorderRadius.circular(5),
         color: ThemeColors.theme[50]!.withOpacity(.1),
         child: InkWell(
-          onTap: () {
-            Navigator.of(context).pushNamed(ContactsScreen.routeName);
-          },
+          onTap: onClick,
           child: Container(
             width: 180,
             height: 130,
@@ -32,14 +38,14 @@ class DashboardScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Icon(
-                  Icons.people,
+                  icon,
                   size: 40,
                   color: ThemeColors.theme[50]!,
                 ),
                 Material(
                   color: Colors.transparent,
                   child: Text(
-                    "Contacts",
+                    name,
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
@@ -51,6 +57,32 @@ class DashboardScreen extends StatelessWidget {
             ),
           ),
         ),
+      ),
+    );
+  }
+
+  Widget buildSlidingMenu(BuildContext context) {
+    return SizedBox(
+      height: 150,
+      child: ListView(
+        scrollDirection: Axis.horizontal,
+        physics: const BouncingScrollPhysics(),
+        children: [
+          buidButton(
+            icon: Icons.people,
+            name: "Contacts",
+            onClick: () => Navigator.of(context).pushNamed(
+              ContactsScreen.routeName,
+            ),
+          ),
+          buidButton(
+            icon: Icons.transfer_within_a_station,
+            name: "Transfers",
+            onClick: () => Navigator.of(context).pushNamed(
+              HomeScreen.routeName,
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -70,9 +102,7 @@ class DashboardScreen extends StatelessWidget {
               child: buildBigLogo(),
             ),
           ),
-          Row(
-            children: [buidButton(context)],
-          ),
+          buildSlidingMenu(context),
         ],
       ),
     );
