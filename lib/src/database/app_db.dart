@@ -7,16 +7,21 @@ Future<Database> createDatabase() async {
 
   path = join(path, 'bytebank.db');
 
-  return await openDatabase(path, onCreate: (db, version) {
-    switch (version) {
-      case 1:
-        db.execute('CREATE TABLE contacts('
-            'id INTEGER PRIMARY KEY, '
-            'fullname TEXT, '
-            'account_number INTEGER)');
-        break;
-    }
-  }, version: 1);
+  return await openDatabase(
+    path,
+    onCreate: (db, version) {
+      switch (version) {
+        case 1:
+          db.execute('CREATE TABLE contacts('
+              'id INTEGER PRIMARY KEY, '
+              'fullname TEXT, '
+              'account_number INTEGER)');
+          break;
+      }
+    },
+    version: 1,
+    onDowngrade: onDatabaseDowngradeDelete,
+  );
 }
 
 Future<int> saveContact(ContactData contact) async {
