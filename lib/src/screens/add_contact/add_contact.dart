@@ -78,7 +78,7 @@ class _AddContactScreen extends State<AddContactScreen> {
                 autofocus: true,
               ),
               InputData(
-                label: "Account name",
+                label: "Account number",
                 placeholder: "0000",
                 controller: accountNumberControl,
                 ketboardType: TextInputType.number,
