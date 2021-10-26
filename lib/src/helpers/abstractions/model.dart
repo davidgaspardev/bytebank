@@ -2,7 +2,6 @@ import 'dart:convert';
 
 /// Abstraction for models
 abstract class Model {
-
   const Model();
 
   Map<String, dynamic> toMap();
