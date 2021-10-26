@@ -72,14 +72,14 @@ class DashboardScreen extends StatelessWidget {
             icon: Icons.people,
             name: "Contacts",
             onClick: () => Navigator.of(context).pushNamed(
-              ContactsScreen.routeName,
+              ContactListScreen.routeName,
             ),
           ),
           buidButton(
             icon: Icons.transfer_within_a_station,
             name: "Transfers",
             onClick: () => Navigator.of(context).pushNamed(
-              HomeScreen.routeName,
+              TransferListScreen.routeName,
             ),
           ),
         ],

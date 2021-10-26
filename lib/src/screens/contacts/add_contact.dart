@@ -1,5 +1,5 @@
 import 'package:bytebank/src/models/contact_data.dart';
-import 'package:bytebank/src/screens/add_contact/widgets/input_data.dart';
+import 'package:bytebank/src/screens/contacts/widgets/input_data.dart';
 import 'package:flutter/material.dart';
 
 export 'package:bytebank/src/models/contact_data.dart';

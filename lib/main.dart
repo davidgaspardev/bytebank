@@ -1,6 +1,8 @@
 import 'package:bytebank/src/models/models.dart';
-import 'package:bytebank/src/screens/add_contact/add_contact.dart';
+import 'package:bytebank/src/screens/contacts/add_contact.dart';
 import 'package:bytebank/src/screens/screens.dart';
+import 'package:bytebank/src/screens/transfers/add_transfer.dart';
+import 'package:bytebank/src/screens/transfers/transfer_list.dart';
 import 'package:bytebank/src/themes/themes.dart';
 import 'package:flutter/material.dart';
 
@@ -22,21 +24,21 @@ class ByteBank extends StatelessWidget {
       onGenerateRoute: (settings) {
         switch (settings.name) {
           case "/":
-          case HomeScreen.routeName:
+          case TransferListScreen.routeName:
             return MaterialPageRoute(
-              builder: (context) => HomeScreen(),
+              builder: (context) => TransferListScreen(),
             );
-          case TransferScreen.routeName:
+          case AddTransferScreen.routeName:
             return MaterialPageRoute<TransferData>(
-              builder: (context) => TransferScreen(),
+              builder: (context) => AddTransferScreen(),
             );
           case DashboardScreen.routeName:
             return MaterialPageRoute(
               builder: (context) => const DashboardScreen(),
             );
-          case ContactsScreen.routeName:
+          case ContactListScreen.routeName:
             return MaterialPageRoute(
-              builder: (context) => ContactsScreen(),
+              builder: (context) => ContactListScreen(),
             );
           case AddContactScreen.routeName:
             return MaterialPageRoute<ContactData>(

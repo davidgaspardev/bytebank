@@ -1,11 +1,11 @@
 import 'package:bytebank/src/models/transfer_data.dart';
-import 'package:bytebank/src/screens/transfer/widgets/edit.dart';
+import 'package:bytebank/src/screens/transfers/widgets/edit.dart';
 import 'package:flutter/material.dart';
 
-class TransferScreen extends StatelessWidget {
-  static const routeName = "/transfer";
+class AddTransferScreen extends StatelessWidget {
+  static const routeName = "/transfer/add";
 
-  TransferScreen({Key? key}) : super(key: key);
+  AddTransferScreen({Key? key}) : super(key: key);
 
   final _accountNumberControl = TextEditingController();
   final _valueControl = TextEditingController();

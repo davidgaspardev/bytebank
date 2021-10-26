@@ -3,12 +3,12 @@ import 'package:bytebank/src/screens/contacts/widgets/contact_item.dart';
 import 'package:bytebank/src/screens/screens.dart';
 import 'package:flutter/material.dart';
 
-class ContactsScreen extends StatelessWidget {
+class ContactListScreen extends StatelessWidget {
   static const routeName = "/contacts";
   // final _contacts = <ContactData>[];
   final repository = ContactRepo();
 
-  ContactsScreen({Key? key}) : super(key: key);
+  ContactListScreen({Key? key}) : super(key: key);
 
   void _addContact(BuildContext context) async {
     var contact = await Navigator.of(context).pushNamed<ContactData>(

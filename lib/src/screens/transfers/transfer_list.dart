@@ -1,24 +1,24 @@
 import 'package:bytebank/src/database/repository/transfer_repo.dart';
 import 'package:bytebank/src/helpers/abstractions/repository.dart';
 import 'package:bytebank/src/models/transfer_data.dart';
-import 'package:bytebank/src/screens/home/widgets/transfer_item.dart';
-import 'package:bytebank/src/screens/transfer/transfer.dart';
+import 'package:bytebank/src/screens/transfers/widgets/transfer_item.dart';
+import 'package:bytebank/src/screens/transfers/add_transfer.dart';
 import 'package:flutter/material.dart';
 
-class HomeScreen extends StatefulWidget {
+class TransferListScreen extends StatefulWidget {
   static const routeName = "/home";
 
   final _transfers = <TransferData>[];
 
-  HomeScreen({Key? key}) : super(key: key);
+  TransferListScreen({Key? key}) : super(key: key);
 
   @override
-  HomeScreenState createState() {
-    return HomeScreenState();
+  _TransferListScreen createState() {
+    return _TransferListScreen();
   }
 }
 
-class HomeScreenState extends State<HomeScreen> {
+class _TransferListScreen extends State<TransferListScreen> {
   final Repository<TransferData> repository = TransferRepo();
 
   List<TransferData> get _transfers => widget._transfers;
@@ -26,7 +26,7 @@ class HomeScreenState extends State<HomeScreen> {
   void _addTransfer() async {
     var transfer = await Navigator.pushNamed<TransferData>(
       context,
-      TransferScreen.routeName,
+      AddTransferScreen.routeName,
     );
     if (transfer != null) {
       debugPrint("Value received: $transfer");
