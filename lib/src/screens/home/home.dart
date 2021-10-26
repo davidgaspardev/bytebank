@@ -1,3 +1,5 @@
+import 'package:bytebank/src/database/repository/transfer_repo.dart';
+import 'package:bytebank/src/helpers/abstractions/repository.dart';
 import 'package:bytebank/src/models/transfer_data.dart';
 import 'package:bytebank/src/screens/home/widgets/transfer_item.dart';
 import 'package:bytebank/src/screens/transfer/transfer.dart';
@@ -17,6 +19,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class HomeScreenState extends State<HomeScreen> {
+  final Repository<TransferData> repository = TransferRepo();
+
   List<TransferData> get _transfers => widget._transfers;
 
   void _addTransfer() async {
@@ -26,10 +30,22 @@ class HomeScreenState extends State<HomeScreen> {
     );
     if (transfer != null) {
       debugPrint("Value received: $transfer");
+      await repository.create(transfer);
       setState(() {
         _transfers.add(transfer);
       });
     }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    repository.readAll().then((List<TransferData> data) {
+      setState(() {
+        _transfers.addAll(data);
+      });
+    });
   }
 
   @override

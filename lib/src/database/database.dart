@@ -1,4 +1,5 @@
 import 'package:bytebank/src/database/repository/contact_repo.dart';
+import 'package:bytebank/src/database/repository/transfer_repo.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 export 'package:sqflite/sqflite.dart';
@@ -10,10 +11,11 @@ Future<Database> createDatabase() async {
 
   return await openDatabase(
     path,
-    onCreate: (db, version) {
+    onCreate: (db, version) async {
       switch (version) {
         case 1:
-          db.execute(ContactRepo.tableSql);
+          await db.execute(ContactRepo.tableSql);
+          await db.execute(TransferRepo.tableSql);
           break;
       }
     },
