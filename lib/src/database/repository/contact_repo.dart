@@ -2,11 +2,10 @@ import 'package:bytebank/src/models/contact_data.dart';
 import 'package:bytebank/src/database/database.dart';
 
 class ContactRepo {
-
   static const tableSql = 'CREATE TABLE $_tableName('
-              '$_id INTEGER PRIMARY KEY, '
-              '$_fullname TEXT, '
-              '$_accountNumber INTEGER)';
+      '$_id INTEGER PRIMARY KEY, '
+      '$_fullname TEXT, '
+      '$_accountNumber INTEGER)';
   static const _tableName = 'contacts';
   static const _id = 'id';
   static const _fullname = 'fullname';
