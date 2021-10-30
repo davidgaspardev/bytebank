@@ -3,7 +3,7 @@ import 'package:bytebank/src/screens/transfers/widgets/edit.dart';
 import 'package:flutter/material.dart';
 
 class AddTransferScreen extends StatelessWidget {
-  static const routeName = "/transfer/add";
+  static const routeName = "transfer/add";
 
   AddTransferScreen({Key? key}) : super(key: key);
 

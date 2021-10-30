@@ -3,7 +3,7 @@ import 'package:bytebank/src/themes/colors.dart';
 import 'package:flutter/material.dart';
 
 class DashboardScreen extends StatelessWidget {
-  static const routeName = "/dashboard";
+  static const routeName = "dashboard";
   const DashboardScreen({Key? key}) : super(key: key);
 
   Widget buildBigLogo() {

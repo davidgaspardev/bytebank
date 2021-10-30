@@ -4,7 +4,7 @@ import 'package:bytebank/src/screens/screens.dart';
 import 'package:flutter/material.dart';
 
 class ContactListScreen extends StatelessWidget {
-  static const routeName = "/contacts";
+  static const routeName = "contacts";
   // final _contacts = <ContactData>[];
   final repository = ContactRepo();
 

@@ -6,7 +6,7 @@ import 'package:bytebank/src/screens/transfers/add_transfer.dart';
 import 'package:flutter/material.dart';
 
 class TransferListScreen extends StatefulWidget {
-  static const routeName = "/home";
+  static const routeName = "tranfers";
 
   final _transfers = <TransferData>[];
 
