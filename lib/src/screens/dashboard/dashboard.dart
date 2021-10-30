@@ -14,7 +14,7 @@ class DashboardScreen extends StatelessWidget {
   }
 
   Widget buidButton({
-    required IconData icon,
+    required String pathIcon,
     required String name,
     required Function() onClick,
   }) {
@@ -37,11 +37,7 @@ class DashboardScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Icon(
-                  icon,
-                  size: 40,
-                  color: ThemeColors.theme[50]!,
-                ),
+                Image.asset(pathIcon),
                 Material(
                   color: Colors.transparent,
                   child: Text(
@@ -69,14 +65,16 @@ class DashboardScreen extends StatelessWidget {
         physics: const BouncingScrollPhysics(),
         children: [
           buidButton(
-            icon: Icons.people,
+            // icon: Icons.people,
+            pathIcon: "lib/assets/images/contacts.png",
             name: "Contacts",
             onClick: () => Navigator.of(context).pushNamed(
               ContactListScreen.routeName,
             ),
           ),
           buidButton(
-            icon: Icons.transfer_within_a_station,
+            // icon: Icons.transfer_within_a_station,
+            pathIcon: "lib/assets/images/transfers.png",
             name: "Transfers",
             onClick: () => Navigator.of(context).pushNamed(
               TransferListScreen.routeName,
