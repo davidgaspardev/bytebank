@@ -1,14 +1,22 @@
 import 'package:bytebank/src/database/repository/contact_repo.dart';
+import 'package:bytebank/src/helpers/abstractions/repository.dart';
 import 'package:bytebank/src/screens/contacts/widgets/contact_item.dart';
 import 'package:bytebank/src/screens/screens.dart';
 import 'package:flutter/material.dart';
 
-class ContactListScreen extends StatelessWidget {
+class ContactListScreen extends StatefulWidget {
   static const routeName = "contacts";
-  // final _contacts = <ContactData>[];
   final repository = ContactRepo();
 
   ContactListScreen({Key? key}) : super(key: key);
+
+  @override
+  _ContactListScreen createState() => _ContactListScreen();
+}
+
+class _ContactListScreen extends State<ContactListScreen> {
+  Repository get repository => widget.repository;
+  final List<ContactData> _contacts = [];
 
   void _addContact(BuildContext context) async {
     var contact = await Navigator.of(context).pushNamed<ContactData>(
@@ -17,11 +25,25 @@ class ContactListScreen extends StatelessWidget {
 
     if (contact != null) {
       debugPrint("New contact: $contact");
-      var result = await repository.create(contact);
-      debugPrint("[Sqflite] Result: $result");
-      var results = await repository.readAll();
-      debugPrint("[Sqflite] All data: $results");
+      await repository.create(contact);
+      // debugPrint("[Sqflite] Result: $result");
+      // var results = await repository.readAll();
+      // debugPrint("[Sqflite] All data: $results");
+      setState(() {
+        _contacts.add(contact);
+      });
     }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    repository.readAll().then((contacts) {
+      setState(() {
+        _contacts.addAll(contacts as Iterable<ContactData>);
+      });
+    });
   }
 
   @override
@@ -30,34 +52,14 @@ class ContactListScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text("My contacts"),
       ),
-      body: FutureBuilder<List<ContactData>>(
-          future: repository.readAll(),
-          builder: (context, snapshot) {
-            switch (snapshot.connectionState) {
-              case ConnectionState.none:
-              case ConnectionState.waiting:
-                return Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      CircularProgressIndicator(),
-                      Text("Loading")
-                    ],
-                  ),
-                );
-              case ConnectionState.active:
-              case ConnectionState.done:
-                final List<ContactData> _contacts = snapshot.data ?? [];
-                return ListView.builder(
-                  itemCount: _contacts.length,
-                  itemBuilder: (context, index) {
-                    return ContactItem(
-                      data: _contacts[index],
-                    );
-                  },
-                );
-            }
-          }),
+      body: ListView.builder(
+        itemCount: _contacts.length,
+        itemBuilder: (context, index) {
+          return ContactItem(
+            data: _contacts[index],
+          );
+        },
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => _addContact(context),
         child: const Icon(Icons.add),
