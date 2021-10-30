@@ -1,5 +1,6 @@
 import 'package:bytebank/src/models/transfer_data.dart';
 import 'package:bytebank/src/screens/transfers/widgets/edit.dart';
+import 'package:bytebank/src/themes/widgets/header.dart';
 import 'package:flutter/material.dart';
 
 class AddTransferScreen extends StatelessWidget {
@@ -24,9 +25,12 @@ class AddTransferScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Criar transferência"),
-        elevation: 0,
+      appBar: Header(
+        title: "To transfer",
+        leading: IconButton(
+          onPressed: () => Navigator.pop(context),
+          icon: Image.asset("lib/assets/images/back.png"),
+        ),
       ),
       body: SingleChildScrollView(
         child: Container(

@@ -1,5 +1,6 @@
 import 'package:bytebank/src/models/contact_data.dart';
 import 'package:bytebank/src/screens/contacts/widgets/input_data.dart';
+import 'package:bytebank/src/themes/widgets/header.dart';
 import 'package:flutter/material.dart';
 
 export 'package:bytebank/src/models/contact_data.dart';
@@ -61,9 +62,12 @@ class _AddContactScreen extends State<AddContactScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Add contact"),
-        elevation: 0,
+      appBar: Header(
+        title: "Add contact",
+        leading: IconButton(
+          onPressed: () => Navigator.pop(context),
+          icon: Image.asset("lib/assets/images/back.png"),
+        ),
       ),
       body: SingleChildScrollView(
         child: Padding(

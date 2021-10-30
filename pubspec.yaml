@@ -70,6 +70,7 @@ flutter:
     - lib/assets/images/contacts.png
     - lib/assets/images/transfers.png
     - lib/assets/images/transfer.png
+    - lib/assets/images/back.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

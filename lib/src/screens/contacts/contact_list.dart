@@ -2,6 +2,7 @@ import 'package:bytebank/src/database/repository/contact_repo.dart';
 import 'package:bytebank/src/helpers/abstractions/repository.dart';
 import 'package:bytebank/src/screens/contacts/widgets/contact_item.dart';
 import 'package:bytebank/src/screens/screens.dart';
+import 'package:bytebank/src/themes/widgets/header.dart';
 import 'package:flutter/material.dart';
 
 class ContactListScreen extends StatefulWidget {
@@ -49,8 +50,12 @@ class _ContactListScreen extends State<ContactListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("My contacts"),
+      appBar: Header(
+        title: "Contacts",
+        leading: IconButton(
+          onPressed: () => Navigator.pop(context),
+          icon: Image.asset("lib/assets/images/back.png"),
+        ),
       ),
       body: ListView.builder(
         itemCount: _contacts.length,

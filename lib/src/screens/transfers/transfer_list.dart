@@ -3,6 +3,7 @@ import 'package:bytebank/src/helpers/abstractions/repository.dart';
 import 'package:bytebank/src/models/transfer_data.dart';
 import 'package:bytebank/src/screens/transfers/widgets/transfer_item.dart';
 import 'package:bytebank/src/screens/transfers/add_transfer.dart';
+import 'package:bytebank/src/themes/widgets/header.dart';
 import 'package:flutter/material.dart';
 
 class TransferListScreen extends StatefulWidget {
@@ -51,10 +52,12 @@ class _TransferListScreen extends State<TransferListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("ByteBank"),
-        leading: Image.asset("lib/assets/images/logo.png"),
-        elevation: 0,
+      appBar: Header(
+        title: "Transfers",
+        leading: IconButton(
+          onPressed: () => Navigator.pop(context),
+          icon: Image.asset("lib/assets/images/back.png"),
+        ),
       ),
       body: ListView.builder(
         itemCount: _transfers.length,
