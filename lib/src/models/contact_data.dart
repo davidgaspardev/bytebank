@@ -11,6 +11,17 @@ class ContactData extends Model {
     required this.accountNumber,
   }) : id = id ?? DateTime.now().millisecondsSinceEpoch;
 
+  static ContactData fromMap(Map<String, dynamic> map) {
+    try {
+      return ContactData(
+        fullname: map["fullname"],
+        accountNumber: map["accountNumber"],
+      );
+    } catch(e) {
+      rethrow;
+    }
+  }
+
   @override
   Map<String, dynamic> toMap() {
     return {
