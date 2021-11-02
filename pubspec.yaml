@@ -66,6 +66,9 @@ flutter:
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
   assets:
+    # Config
+    - lib/assets/config/bytebank-api.json
+    # Images
     - lib/assets/images/logo.png
     - lib/assets/images/big_logo.png
     - lib/assets/images/contacts.png
