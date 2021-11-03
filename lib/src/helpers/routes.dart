@@ -1,5 +1,6 @@
 import 'package:bytebank/src/models/models.dart';
 import 'package:bytebank/src/models/transaction_data.dart';
+import 'package:bytebank/src/screens/contacts/transfer_by_contact.dart';
 import 'package:bytebank/src/screens/screens.dart';
 import 'package:bytebank/src/screens/transactions/transaction.dart';
 import 'package:bytebank/src/screens/transactions/transactions_list.dart';
@@ -32,6 +33,13 @@ class Routes {
         return MaterialPageRoute<ContactData>(
           builder: (context) => AddContactScreen(),
         );
+      case TransferByContactScreen.routeName:
+        if (arguments is ContactData) {
+          return MaterialPageRoute<ContactData>(
+            builder: (context) => TransferByContactScreen(contact: arguments),
+          );
+        }
+        throw Exception("Invalid route arguments: $arguments");
       case TransactionScreen.routeName:
         if (arguments is TransactionData) {
           return MaterialPageRoute<TransactionData>(
