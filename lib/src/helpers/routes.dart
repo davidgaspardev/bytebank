@@ -1,5 +1,7 @@
 import 'package:bytebank/src/models/models.dart';
+import 'package:bytebank/src/models/transaction_data.dart';
 import 'package:bytebank/src/screens/screens.dart';
+import 'package:bytebank/src/screens/transactions/transaction.dart';
 import 'package:bytebank/src/screens/transactions/transactions_list.dart';
 import 'package:flutter/material.dart';
 
@@ -7,6 +9,8 @@ class Routes {
   static const initialRoute = DashboardScreen.routeName;
 
   static Route<dynamic> onGenerateRoute(RouteSettings settings) {
+    final arguments = settings.arguments;
+
     switch (settings.name) {
       case TransferListScreen.routeName:
         return MaterialPageRoute(
@@ -28,6 +32,13 @@ class Routes {
         return MaterialPageRoute<ContactData>(
           builder: (context) => AddContactScreen(),
         );
+      case TransactionScreen.routeName:
+        if (arguments is TransactionData) {
+          return MaterialPageRoute<TransactionData>(
+            builder: (context) => TransactionScreen(data: arguments),
+          );
+        }
+        throw Exception("Invalid route arguments: $arguments");
       default:
         throw Exception("Invalid route name: ${settings.name}");
     }
