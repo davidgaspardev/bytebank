@@ -1,5 +1,6 @@
 import 'package:bytebank/src/models/models.dart';
 import 'package:bytebank/src/screens/screens.dart';
+import 'package:bytebank/src/screens/transactions/transactions_list.dart';
 import 'package:flutter/material.dart';
 
 class Routes {
@@ -9,7 +10,7 @@ class Routes {
     switch (settings.name) {
       case TransferListScreen.routeName:
         return MaterialPageRoute(
-          builder: (context) => TransferListScreen(),
+          builder: (context) => const TransactionsListScreen(),
         );
       case AddTransferScreen.routeName:
         return MaterialPageRoute<TransferData>(
