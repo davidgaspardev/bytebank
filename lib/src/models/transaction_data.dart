@@ -32,7 +32,7 @@ class TransactionData extends Model {
     var map = <String, dynamic>{
       "value": value,
       "contact": contact.toMap(),
-      "datetime": dateTime.toIso8601String(),
+      "datetime": dateTime.toUtc().toIso8601String(),
     };
 
     if(id != null) map["id"] = id;
