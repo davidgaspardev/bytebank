@@ -29,7 +29,7 @@ class TransactionData extends Model {
     return {
       "value": value,
       "contact": contact.toMap(),
-      "datetime": dateTime.toString(),
+      "datetime": dateTime.toIso8601String(),
     };
   }
 }
