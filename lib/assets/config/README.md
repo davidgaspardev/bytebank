@@ -10,12 +10,13 @@ Name this file is `bytebank-api.json`, it uses **json** format.
 Here is a example:
 ```json
 {
-    // To the URI instance
     "scheme": "http",
     "host": "192.168.0.1",
     "port": 8080,
-    // To the get method from http package
-    "password": "1234"
+    "auth": {
+        "username": "davidgaspar",
+        "[assword": "gaspardavid10"
+    }
 }
 ```
 
