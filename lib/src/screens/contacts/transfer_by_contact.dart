@@ -1,5 +1,6 @@
 import 'package:bytebank/src/helpers/api/bytebank_api.dart';
 import 'package:bytebank/src/helpers/format.dart';
+import 'package:bytebank/src/helpers/widgets/auth_dialog.dart';
 import 'package:bytebank/src/models/contact_data.dart';
 import 'package:bytebank/src/models/transaction_data.dart';
 import 'package:bytebank/src/screens/contacts/widgets/input_data.dart';
@@ -70,17 +71,24 @@ class TransferByContactScreen extends StatelessWidget {
                   final value = double.tryParse(_value.text);
 
                   if (value != null) {
-                    final transaction = TransactionData(
-                      value: value,
-                      contact: contact,
-                      dateTime: DateTime.now(),
+                    String? password = await showDialog<String>(
+                      context: context,
+                      builder: (context) => const AuthDialog(),
                     );
 
-                    try {
-                      await ByteBankAPI().toTransfer(transaction);
-                      return Navigator.pop(context);
-                    } catch(e) {
-                      rethrow;
+                    if (password == "9089") {
+                      final transaction = TransactionData(
+                        value: value,
+                        contact: contact,
+                        dateTime: DateTime.now(),
+                      );
+
+                      try {
+                        await ByteBankAPI().toTransfer(transaction);
+                        return Navigator.pop(context);
+                      } catch (e) {
+                        rethrow;
+                      }
                     }
                   }
                   _transferInProgress = false;
