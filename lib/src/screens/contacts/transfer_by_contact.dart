@@ -7,17 +7,23 @@ import 'package:bytebank/src/screens/contacts/widgets/input_data.dart';
 import 'package:bytebank/src/themes/widgets/header.dart';
 import 'package:flutter/material.dart';
 
-class TransferByContactScreen extends StatelessWidget {
+class TransferByContactScreen extends StatefulWidget {
   static const routeName = "transfer_by_contact";
-  final TextEditingController _value = TextEditingController();
-  var _transferInProgress = false;
-
   final ContactData contact;
 
-  TransferByContactScreen({
+  const TransferByContactScreen({
     Key? key,
     required this.contact,
   }) : super(key: key);
+
+  @override
+  State<TransferByContactScreen> createState() => _TransferByContactScreenState();
+}
+
+class _TransferByContactScreenState extends State<TransferByContactScreen> {
+  final TextEditingController _value = TextEditingController();
+
+  var _transferInProgress = false;
 
   @override
   Widget build(BuildContext context) {
@@ -36,18 +42,18 @@ class TransferByContactScreen extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(contact.fullname),
+                Text(widget.contact.fullname),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     Text(
-                      showAsBinary(contact.accountNumber),
+                      showAsBinary(widget.contact.accountNumber),
                       style: const TextStyle(
                         fontSize: 10,
                       ),
                     ),
                     Text(
-                      contact.accountNumber.toString(),
+                      widget.contact.accountNumber.toString(),
                       style: const TextStyle(
                         fontWeight: FontWeight.bold,
                       ),
@@ -79,7 +85,7 @@ class TransferByContactScreen extends StatelessWidget {
                     if (password == "9089") {
                       final transaction = TransactionData(
                         value: value,
-                        contact: contact,
+                        contact: widget.contact,
                         dateTime: DateTime.now(),
                       );
 
