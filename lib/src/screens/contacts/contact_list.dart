@@ -25,11 +25,8 @@ class _ContactListScreen extends State<ContactListScreen> {
     );
 
     if (contact != null) {
-      debugPrint("New contact: $contact");
       await repository.create(contact);
-      // debugPrint("[Sqflite] Result: $result");
-      // var results = await repository.readAll();
-      // debugPrint("[Sqflite] All data: $results");
+
       setState(() {
         _contacts.add(contact);
       });

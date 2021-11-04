@@ -25,9 +25,6 @@ class _AddContactScreen extends State<AddContactScreen> {
     String text = accountNumberControl.text;
     text = text.replaceAll(RegExp(r'[^0-9]'), '');
 
-    debugPrint("text: ${accountNumberControl.text}");
-    debugPrint("new text: $text");
-
     if (text != accountNumberControl.text) {
       accountNumberControl.text = text;
       accountNumberControl.selection = TextSelection.fromPosition(

@@ -30,7 +30,6 @@ class _TransferListScreen extends State<TransferListScreen> {
       AddTransferScreen.routeName,
     );
     if (transfer != null) {
-      debugPrint("Value received: $transfer");
       await repository.create(transfer);
       setState(() {
         _transfers.add(transfer);

@@ -80,8 +80,7 @@ class TransferByContactScreen extends StatelessWidget {
                       await ByteBankAPI().toTransfer(transaction);
                       return Navigator.pop(context);
                     } catch(e) {
-                      // ignore: avoid_print
-                      print(e);
+                      rethrow;
                     }
                   }
                   _transferInProgress = false;

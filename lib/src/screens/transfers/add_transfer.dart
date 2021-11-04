@@ -16,8 +16,10 @@ class AddTransferScreen extends StatelessWidget {
     double? value = double.tryParse(_valueControl.text);
 
     if (accountNumber != null && value != null) {
-      var transfer = TransferData(accountNumber: accountNumber, value: value);
-      debugPrint("Tranfer created: $transfer");
+      var transfer = TransferData(
+        accountNumber: accountNumber,
+        value: value,
+      );
       Navigator.pop(context, transfer);
     }
   }
