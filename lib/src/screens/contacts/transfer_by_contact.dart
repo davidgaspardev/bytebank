@@ -1,6 +1,10 @@
+import 'dart:async';
+import 'dart:io';
+
 import 'package:bytebank/src/helpers/api/bytebank_api.dart';
 import 'package:bytebank/src/helpers/format.dart';
 import 'package:bytebank/src/helpers/widgets/auth_dialog.dart';
+import 'package:bytebank/src/helpers/widgets/info_dialog.dart';
 import 'package:bytebank/src/models/contact_data.dart';
 import 'package:bytebank/src/models/transaction_data.dart';
 import 'package:bytebank/src/screens/contacts/widgets/input_data.dart';
@@ -17,7 +21,10 @@ class TransferByContactScreen extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<TransferByContactScreen> createState() => _TransferByContactScreenState();
+  _TransferByContactScreenState createState() {
+    return _TransferByContactScreenState();
+  }
+      
 }
 
 class _TransferByContactScreenState extends State<TransferByContactScreen> {
@@ -82,19 +89,39 @@ class _TransferByContactScreenState extends State<TransferByContactScreen> {
                       builder: (context) => const AuthDialog(),
                     );
 
-                    if (password == "9089") {
-                      final transaction = TransactionData(
-                        value: value,
-                        contact: widget.contact,
-                        dateTime: DateTime.now(),
+                    final transaction = TransactionData(
+                      value: value,
+                      contact: widget.contact,
+                      dateTime: DateTime.now(),
+                    );
+
+                    try {
+                      if (password == null || password.isEmpty) {
+                        throw const FormatException(
+                          "it is necessary to inform the password",
+                        );
+                      }
+
+                      await ByteBankAPI().toTransfer(
+                        transaction,
+                        password: password,
                       );
 
-                      try {
-                        await ByteBankAPI().toTransfer(transaction);
-                        return Navigator.pop(context);
-                      } catch (e) {
-                        rethrow;
+                      await _showSuccessfulMessage(context);
+                      return Navigator.pop(context);
+                    }
+
+                    /** Handling error */
+                    on Exception catch (e) {
+                      String? message;
+                      if (e is FormatException) {
+                        message = e.message;
+                      } else if (e is HttpException) {
+                        message = e.message;
+                      } else if (e is TimeoutException) {
+                        message = 'timeout submitting the transaction';
                       }
+                      await _showFailureMessage(context, message: message);
                     }
                   }
                   _transferInProgress = false;
@@ -104,6 +131,27 @@ class _TransferByContactScreenState extends State<TransferByContactScreen> {
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  Future<void> _showSuccessfulMessage(BuildContext context) async {
+    await showDialog(
+      context: context,
+      builder: (context) => const SuccessDialog(
+        message: "successful transaction",
+      ),
+    );
+  }
+
+  Future<void> _showFailureMessage(
+    BuildContext context, {
+    String? message = 'unknown error',
+  }) async {
+    await showDialog(
+      context: context,
+      builder: (context) => FailureDialog(
+        message: message!,
       ),
     );
   }

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:bytebank/src/models/transaction_data.dart';
 import 'package:flutter/services.dart';
@@ -14,7 +15,10 @@ class ByteBankAPI {
     return _singleton;
   }
 
-  Future<TransactionData> toTransfer(TransactionData transaction) async {
+  Future<TransactionData> toTransfer(
+    TransactionData transaction, {
+    required String password,
+  }) async {
     configApi ??= jsonDecode(
       await rootBundle.loadString("lib/assets/config/bytebank-api.json"),
     );
@@ -22,25 +26,27 @@ class ByteBankAPI {
     var auth = base64Encode(utf8.encode(
         "${configApi!["auth"]["username"]}:${configApi!["auth"]["password"]}"));
 
+    var uri = Uri(
+      scheme: configApi!["scheme"],
+      host: configApi!["host"],
+      port: configApi!["port"],
+      path: "transactions",
+    );
     var response = await post(
-      Uri(
-        scheme: configApi!["scheme"],
-        host: configApi!["host"],
-        port: configApi!["port"],
-        path: "transactions",
-      ),
+      uri,
       headers: {
         "Content-Type": "application/json",
-        "Authorization": "Basic $auth"
+        "Authorization": "Basic $auth",
+        "password": password
       },
       body: transaction.toString(),
     );
 
-    if (response.statusCode != 200) {
-      throw Exception([
-        "Status code: ${response.statusCode}",
-        "Response: ${response.body}"
-      ]);
+    if (response.statusCode != HttpStatus.created) {
+      throw HttpException(
+        _statusCodeErrorMessage[response.statusCode]!,
+        uri: uri,
+      );
     }
 
     return TransactionData.fromMap(jsonDecode(response.body));
@@ -53,14 +59,20 @@ class ByteBankAPI {
       await rootBundle.loadString("lib/assets/config/bytebank-api.json"),
     );
 
-    var response = await get(
-      Uri(
-        scheme: configApi!["scheme"],
-        host: configApi!["host"],
-        port: configApi!["port"],
-        path: "transactions",
-      ),
+    var uri = Uri(
+      scheme: configApi!["scheme"],
+      host: configApi!["host"],
+      port: configApi!["port"],
+      path: "transactions",
     );
+    var response = await get(uri);
+
+    if (response.statusCode != HttpStatus.ok) {
+      throw HttpException(
+        _statusCodeErrorMessage[response.statusCode]!,
+        uri: uri,
+      );
+    }
 
     for (var map in List<dynamic>.from(jsonDecode(response.body))) {
       result.add(TransactionData.fromMap(map));
@@ -68,4 +80,9 @@ class ByteBankAPI {
 
     return result;
   }
+
+  final Map<int, String> _statusCodeErrorMessage = {
+    400: "there was an error submitting transaction",
+    401: "you are unauthorized"
+  };
 }
