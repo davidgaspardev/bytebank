@@ -44,7 +44,7 @@ class ByteBankAPI {
 
     if (response.statusCode != HttpStatus.created) {
       throw HttpException(
-        _statusCodeErrorMessage[response.statusCode]!,
+        _getMessageByStatusCode(response.statusCode),
         uri: uri,
       );
     }
@@ -69,7 +69,7 @@ class ByteBankAPI {
 
     if (response.statusCode != HttpStatus.ok) {
       throw HttpException(
-        _statusCodeErrorMessage[response.statusCode]!,
+        _getMessageByStatusCode(response.statusCode),
         uri: uri,
       );
     }
@@ -79,6 +79,10 @@ class ByteBankAPI {
     }
 
     return result;
+  }
+
+  String _getMessageByStatusCode(int statusCode) {
+    return _statusCodeErrorMessage[statusCode] ?? "HTTP unknown error";
   }
 
   final Map<int, String> _statusCodeErrorMessage = {
