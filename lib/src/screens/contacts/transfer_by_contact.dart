@@ -169,8 +169,9 @@ class _TransferByContactScreenState extends State<TransferByContactScreen> {
 
   Future<void> _showFailureMessage(
     BuildContext context, {
-    String? message = 'unknown error',
+    String? message,
   }) async {
+    message ??= 'unknown error';
     await showDialog(
       context: context,
       builder: (context) => FailureDialog(
