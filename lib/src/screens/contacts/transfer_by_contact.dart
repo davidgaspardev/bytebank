@@ -24,114 +24,137 @@ class TransferByContactScreen extends StatefulWidget {
   _TransferByContactScreenState createState() {
     return _TransferByContactScreenState();
   }
-      
 }
 
 class _TransferByContactScreenState extends State<TransferByContactScreen> {
   final TextEditingController _value = TextEditingController();
 
   var _transferInProgress = false;
+  var _isLoading = false;
+
+  Widget _buildLoading() {
+    return Visibility(
+      visible: _isLoading,
+      child: Container(
+        alignment: Alignment.center,
+        color: Colors.black.withOpacity(0.4),
+        child: const CircularProgressIndicator(
+          color: Colors.white,
+        ),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: Header(
-        title: "New transfer",
-        leading: IconButton(
-          onPressed: () => Navigator.pop(context),
-          icon: Image.asset("lib/assets/images/back.png"),
-        ),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return Stack(
+      children: [
+        Scaffold(
+          appBar: Header(
+            title: "New transfer",
+            leading: IconButton(
+              onPressed: () => Navigator.pop(context),
+              icon: Image.asset("lib/assets/images/back.png"),
+            ),
+          ),
+          body: Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
               children: [
-                Text(widget.contact.fullname),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      showAsBinary(widget.contact.accountNumber),
-                      style: const TextStyle(
-                        fontSize: 10,
-                      ),
-                    ),
-                    Text(
-                      widget.contact.accountNumber.toString(),
-                      style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                      ),
+                    Text(widget.contact.fullname),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Text(
+                          showAsBinary(widget.contact.accountNumber),
+                          style: const TextStyle(
+                            fontSize: 10,
+                          ),
+                        ),
+                        Text(
+                          widget.contact.accountNumber.toString(),
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),
+                InputData(
+                  label: "Value to transfer",
+                  placeholder: "50.00",
+                  controller: _value,
+                  autofocus: true,
+                  ketboardType: TextInputType.number,
+                  margin: const EdgeInsets.symmetric(vertical: 16),
+                ),
+                OutlinedButton(
+                  onPressed: () async {
+                    if (!_transferInProgress) {
+                      _transferInProgress = true;
+                      final value = double.tryParse(_value.text);
+
+                      if (value != null) {
+                        String? password = await showDialog<String>(
+                          context: context,
+                          builder: (context) => const AuthDialog(),
+                        );
+
+                        try {
+                          if (password == null || password.isEmpty) {
+                            throw const FormatException(
+                              "it is necessary to inform the password",
+                            );
+                          }
+
+                          setState(() {
+                            _isLoading = true;
+                          });
+
+                          await ByteBankAPI().toTransfer(
+                            TransactionData(
+                              value: value,
+                              contact: widget.contact,
+                              dateTime: DateTime.now(),
+                            ),
+                            password: password,
+                          );
+
+                          await _showSuccessfulMessage(context);
+                          return Navigator.pop(context);
+                        }
+
+                        /** Handling error */
+                        on Exception catch (e) {
+                          String? message;
+                          if (e is FormatException) {
+                            message = e.message;
+                          } else if (e is HttpException) {
+                            message = e.message;
+                          } else if (e is TimeoutException) {
+                            message = 'timeout submitting the transaction';
+                          }
+                          await _showFailureMessage(context, message: message);
+                          setState(() {
+                            _isLoading = false;
+                          });
+                        }
+                      }
+                      _transferInProgress = false;
+                    }
+                  },
+                  child: const Text("tranfer"),
+                ),
               ],
             ),
-            InputData(
-              label: "Value to transfer",
-              placeholder: "50.00",
-              controller: _value,
-              autofocus: true,
-              ketboardType: TextInputType.number,
-              margin: const EdgeInsets.symmetric(vertical: 16),
-            ),
-            OutlinedButton(
-              onPressed: () async {
-                if (!_transferInProgress) {
-                  _transferInProgress = true;
-                  final value = double.tryParse(_value.text);
-
-                  if (value != null) {
-                    String? password = await showDialog<String>(
-                      context: context,
-                      builder: (context) => const AuthDialog(),
-                    );
-
-                    final transaction = TransactionData(
-                      value: value,
-                      contact: widget.contact,
-                      dateTime: DateTime.now(),
-                    );
-
-                    try {
-                      if (password == null || password.isEmpty) {
-                        throw const FormatException(
-                          "it is necessary to inform the password",
-                        );
-                      }
-
-                      await ByteBankAPI().toTransfer(
-                        transaction,
-                        password: password,
-                      );
-
-                      await _showSuccessfulMessage(context);
-                      return Navigator.pop(context);
-                    }
-
-                    /** Handling error */
-                    on Exception catch (e) {
-                      String? message;
-                      if (e is FormatException) {
-                        message = e.message;
-                      } else if (e is HttpException) {
-                        message = e.message;
-                      } else if (e is TimeoutException) {
-                        message = 'timeout submitting the transaction';
-                      }
-                      await _showFailureMessage(context, message: message);
-                    }
-                  }
-                  _transferInProgress = false;
-                }
-              },
-              child: const Text("tranfer"),
-            ),
-          ],
+          ),
         ),
-      ),
+        _buildLoading()
+      ],
     );
   }
 
