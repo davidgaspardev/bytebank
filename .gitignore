@@ -48,3 +48,6 @@ app.*.map.json
 # Config files
 /lib/assets/config/*
 !/lib/assets/config/README.md
+
+#Firebase
+/android/app/google-services.json
