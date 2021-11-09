@@ -12,7 +12,7 @@ void main() async {
 
   await Firebase.initializeApp();
 
-  if (kDebugMode) {
+  if (!kDebugMode) {
     await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(false);
   } else {
     await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
