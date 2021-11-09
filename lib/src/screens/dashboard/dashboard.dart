@@ -1,3 +1,5 @@
+import 'package:bytebank/src/models/balance_data.dart';
+import 'package:bytebank/src/screens/dashboard/widgets/balance_indicator.dart';
 import 'package:bytebank/src/screens/screens.dart';
 import 'package:bytebank/src/themes/colors.dart';
 import 'package:flutter/material.dart';
@@ -94,6 +96,7 @@ class DashboardScreen extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
+          const BalanceIndicator(data: BalanceData(value: 1290)),
           Expanded(
             child: Align(
               alignment: Alignment.center,
