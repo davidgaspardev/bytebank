@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bytebank/src/helpers/routes.dart';
 import 'package:bytebank/src/themes/themes.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -19,7 +21,9 @@ void main() async {
     FirebaseCrashlytics.instance.setUserIdentifier("user#894783");
   }
 
-  runApp(const ByteBank());
+  runZonedGuarded<Future<void>>(() async {
+    runApp(const ByteBank());
+  }, FirebaseCrashlytics.instance.recordError);
 }
 
 class ByteBank extends StatelessWidget {
