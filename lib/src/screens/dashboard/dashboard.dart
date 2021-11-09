@@ -96,7 +96,7 @@ class DashboardScreen extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          const BalanceIndicator(data: BalanceData(value: 1290)),
+          const BalanceIndicator(),
           Expanded(
             child: Align(
               alignment: Alignment.center,

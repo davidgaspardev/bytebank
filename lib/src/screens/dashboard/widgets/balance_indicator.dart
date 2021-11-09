@@ -1,14 +1,10 @@
 import 'package:bytebank/src/models/balance_data.dart';
 import 'package:bytebank/src/themes/themes.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class BalanceIndicator extends StatefulWidget {
-  final BalanceData data;
-
-  const BalanceIndicator({
-    Key? key,
-    required this.data,
-  }) : super(key: key);
+  const BalanceIndicator({Key? key}) : super(key: key);
 
   @override
   BalanceIndicatorState createState() => BalanceIndicatorState();
@@ -17,7 +13,20 @@ class BalanceIndicator extends StatefulWidget {
 class BalanceIndicatorState extends State<BalanceIndicator> {
   bool _visible = true;
 
-  BalanceData get _data => widget.data;
+  Widget buildBalance() {
+    return Consumer<BalanceData>(builder: (context, value, _) {
+      return Text(
+        value.toString(),
+        style: const TextStyle(
+          decoration: TextDecoration.none,
+          fontSize: 16,
+          color: ThemeColors.color50,
+          fontWeight: FontWeight.bold,
+          fontFamily: 'Poppins',
+        ),
+      );
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,15 +42,7 @@ class BalanceIndicatorState extends State<BalanceIndicator> {
           Padding(
             padding: const EdgeInsets.only(top: 5, bottom: 2.5),
             child: _visible
-                ? Text(
-                    _data.toString(),
-                    style: const TextStyle(
-                        decoration: TextDecoration.none,
-                        fontSize: 16,
-                        color: ThemeColors.color50,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: 'Poppins'),
-                  )
+                ? buildBalance()
                 : Container(
                     height: 24,
                     width: 150,

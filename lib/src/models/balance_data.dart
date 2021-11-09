@@ -1,9 +1,10 @@
 import 'package:bytebank/src/helpers/abstractions/model.dart';
+import 'package:flutter/material.dart';
 
-class BalanceData extends Model {
+class BalanceData extends ChangeNotifier implements Model {
   final double value;
 
-  const BalanceData({
+  BalanceData({
     required this.value,
   });
 
