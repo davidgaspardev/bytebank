@@ -10,13 +10,13 @@ void main() async {
 
   await Firebase.initializeApp();
 
-  if(kDebugMode) {
+  if (kDebugMode) {
     await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(false);
   } else {
     await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
     // Pass all uncaught errors from the framework to Crashlytics.
-  FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
-  FirebaseCrashlytics.instance.setUserIdentifier("user#894783");
+    FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
+    FirebaseCrashlytics.instance.setUserIdentifier("user#894783");
   }
 
   runApp(const ByteBank());
