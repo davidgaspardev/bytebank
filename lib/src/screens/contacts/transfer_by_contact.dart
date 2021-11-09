@@ -9,6 +9,7 @@ import 'package:bytebank/src/models/contact_data.dart';
 import 'package:bytebank/src/models/transaction_data.dart';
 import 'package:bytebank/src/screens/contacts/widgets/input_data.dart';
 import 'package:bytebank/src/themes/widgets/header.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 
 class TransferByContactScreen extends StatefulWidget {
@@ -104,6 +105,12 @@ class _TransferByContactScreenState extends State<TransferByContactScreen> {
                           builder: (context) => const AuthDialog(),
                         );
 
+                        final newTransaction = TransactionData(
+                          value: value,
+                          contact: widget.contact,
+                          dateTime: DateTime.now(),
+                        );
+
                         try {
                           if (password == null || password.isEmpty) {
                             throw const FormatException(
@@ -116,11 +123,7 @@ class _TransferByContactScreenState extends State<TransferByContactScreen> {
                           });
 
                           await ByteBankAPI().toTransfer(
-                            TransactionData(
-                              value: value,
-                              contact: widget.contact,
-                              dateTime: DateTime.now(),
-                            ),
+                            newTransaction,
                             password: password,
                           );
 
@@ -130,15 +133,45 @@ class _TransferByContactScreenState extends State<TransferByContactScreen> {
 
                         /** Handling error */
                         on Exception catch (e) {
-                          String? message;
+                          bool crashlyticsEnabled = FirebaseCrashlytics
+                              .instance.isCrashlyticsCollectionEnabled;
+                          String message;
                           if (e is FormatException) {
                             message = e.message;
                           } else if (e is HttpException) {
+                            if (crashlyticsEnabled) {
+                              FirebaseCrashlytics.instance.setCustomKey(
+                                'uri',
+                                e.uri!,
+                              );
+                            }
                             message = e.message;
                           } else if (e is TimeoutException) {
+                            if (crashlyticsEnabled) {
+                              FirebaseCrashlytics.instance.setCustomKey(
+                                'duration',
+                                e.duration!.toString(),
+                              );
+                            }
                             message = 'timeout submitting the transaction';
+                          } else {
+                            message = 'unknown error';
                           }
-                          await _showFailureMessage(context, message: message);
+                          if (crashlyticsEnabled) {
+                            FirebaseCrashlytics.instance.setCustomKey(
+                              'exception',
+                              e.toString(),
+                            );
+                            FirebaseCrashlytics.instance.setCustomKey(
+                              'data',
+                              newTransaction.toString(),
+                            );
+                            FirebaseCrashlytics.instance.recordError(
+                              e,
+                              null,
+                            );
+                          }
+                          await _showFailureMessage(context, message);
                           setState(() {
                             _isLoading = false;
                           });
@@ -167,15 +200,11 @@ class _TransferByContactScreenState extends State<TransferByContactScreen> {
     );
   }
 
-  Future<void> _showFailureMessage(
-    BuildContext context, {
-    String? message,
-  }) async {
-    message ??= 'unknown error';
+  Future<void> _showFailureMessage(BuildContext context, String message) async {
     await showDialog(
       context: context,
       builder: (context) => FailureDialog(
-        message: message!,
+        message: message,
       ),
     );
   }
