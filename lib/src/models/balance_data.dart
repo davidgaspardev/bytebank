@@ -8,6 +8,16 @@ class BalanceData extends ChangeNotifier implements Model {
     required double value,
   }): _value = value;
 
+  void increment(double value) {
+    _value += value;
+    notifyListeners();
+  }
+
+  void decrement(double value) {
+    _value -= value;
+    notifyListeners();
+  }
+
   @override
   Map<String, double> toMap() {
     return {
