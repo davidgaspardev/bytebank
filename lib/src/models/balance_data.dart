@@ -2,21 +2,21 @@ import 'package:bytebank/src/helpers/abstractions/model.dart';
 import 'package:flutter/material.dart';
 
 class BalanceData extends ChangeNotifier implements Model {
-  final double value;
+  double _value;
 
   BalanceData({
-    required this.value,
-  });
+    required double value,
+  }): _value = value;
 
   @override
   Map<String, double> toMap() {
     return {
-      "value": value
+      "value": _value
     };
   }
 
   @override
   String toString() {
-    return "R\$ ${value.toStringAsFixed(2)}";
+    return "R\$ ${_value.toStringAsFixed(2)}";
   }
 }
