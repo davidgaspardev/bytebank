@@ -1,3 +1,4 @@
+import 'package:bytebank/src/models/deposit_data.dart';
 import 'package:bytebank/src/models/models.dart';
 import 'package:bytebank/src/models/transaction_data.dart';
 import 'package:bytebank/src/screens/contacts/transfer_by_contact.dart';
@@ -13,18 +14,12 @@ class Routes {
     final arguments = settings.arguments;
 
     switch (settings.name) {
-      case TransferListScreen.routeName:
-        return MaterialPageRoute(
-          builder: (context) => const TransactionsListScreen(),
-        );
-      case AddTransferScreen.routeName:
-        return MaterialPageRoute<TransferData>(
-          builder: (context) => AddTransferScreen(),
-        );
       case DashboardScreen.routeName:
         return MaterialPageRoute(
           builder: (context) => const DashboardScreen(),
         );
+
+      /** Contacts routes */
       case ContactListScreen.routeName:
         return MaterialPageRoute(
           builder: (context) => ContactListScreen(),
@@ -40,6 +35,12 @@ class Routes {
           );
         }
         throw Exception("Invalid route arguments: $arguments");
+
+      /** Transactions routes */
+      case TransactionsListScreen.routeName:
+        return MaterialPageRoute(
+          builder: (context) => const TransactionsListScreen(),
+        );
       case TransactionScreen.routeName:
         if (arguments is TransactionData) {
           return MaterialPageRoute<TransactionData>(
@@ -47,6 +48,17 @@ class Routes {
           );
         }
         throw Exception("Invalid route arguments: $arguments");
+
+      /** Deposit routes */
+      case DepositListScreen.routeName:
+        return MaterialPageRoute(
+          builder: (context) => DepositListScreen(),
+        );
+      case CreateDepositScreen.routeName:
+        return MaterialPageRoute<DepositData>(
+          builder: (context) => CreateDepositScreen(),
+        );
+
       default:
         throw Exception("Invalid route name: ${settings.name}");
     }

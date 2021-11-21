@@ -1,8 +1,10 @@
 import 'package:bytebank/src/models/balance_data.dart';
 import 'package:bytebank/src/screens/dashboard/widgets/balance_indicator.dart';
 import 'package:bytebank/src/screens/screens.dart';
+import 'package:bytebank/src/screens/transactions/transactions_list.dart';
 import 'package:bytebank/src/themes/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class DashboardScreen extends StatelessWidget {
   static const routeName = "dashboard";
@@ -79,7 +81,15 @@ class DashboardScreen extends StatelessWidget {
             pathIcon: "lib/assets/images/transfers.png",
             name: "Transfers",
             onClick: () => Navigator.of(context).pushNamed(
-              TransferListScreen.routeName,
+              TransactionsListScreen.routeName,
+            ),
+          ),
+          buidButton(
+            // icon: Icons.transfer_within_a_station,
+            pathIcon: "lib/assets/images/deposit.png",
+            name: "Deposit",
+            onClick: () => Navigator.of(context).pushNamed(
+              DepositListScreen.routeName,
             ),
           ),
         ],
