@@ -1,4 +1,5 @@
 import 'package:bytebank/src/database/repository/contact_repo.dart';
+import 'package:bytebank/src/database/repository/deposit_repo.dart';
 import 'package:bytebank/src/database/repository/transfer_repo.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
@@ -16,6 +17,7 @@ Future<Database> createDatabase() async {
         case 1:
           await db.execute(ContactRepo.tableSql);
           await db.execute(TransferRepo.tableSql);
+          await db.execute(DepositRepo.tableSql);
           break;
       }
     },
